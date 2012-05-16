@@ -77,7 +77,6 @@ if(pause==0)
 		else{z[r]=0;}
 		var nabbo=document.createElement("table");
 		nabbo.setAttribute('background', "Nabbo.gif");
-		nabbo.setAttribute('class', "snab");
 		nabbo.innerHTML='<tr><td OnMouseOver="inverti_nabbo('+i+');" ></td><td OnMouseOver="inverti_nabbo('+i+');"></td><td OnMouseOver="inverti_nabbo('+i+');"></td></tr>';
 		nabbo.setAttribute('id', i);
 		nabbo.setAttribute('OnMouseOver', "inverti_nabbo(this.id);");
@@ -134,7 +133,7 @@ if(pause==0)
 		document.getElementById(p[nabbo]).removeChild(document.getElementById(nabbo));
 		score+=10;
 		nuovo_livello('level_up');
-		document.getElementById("Score").innerHTML="Livello: "+livello+" Score: "+score;
+		document.getElementById("Score").innerHTML="Level: "+livello+" Score: "+score;
 		if(nabbi>=12)
 		{restart();}
 	}
@@ -157,14 +156,14 @@ if(pause==0)
 
 function conferma()
 {
-	alert('Hai perso!');
-	if(confirm("Hai fatto "+score+" punti! \n Vuoi riniziare?"))
+	alert('You lose!');
+	if(confirm("You did "+score+" points! \n Do you want to start over?"))
 	{
 		location.href="";
 	}
 	else
 	{
-		alert("Allora visita il nostro sito!");
+		alert("Then visit our website!");
 		location.href="http://shinworld.altervista.org/";
 	}
 }
@@ -214,7 +213,7 @@ function suono()
 { 
 	if (sound==0) 
 	{
-		document.getElementById("suono").innerHTML ='<embed id="video" src="SkyVibe-HighFrequency.mp3" autostart="true" width="0" height="0" type="audio/mpeg"></embed>';
+		document.getElementById("suono").innerHTML ='<embed id="video" src="SkyVibe-HighFrequency.mp3" autostart="true" enablejavascript="true" width="0" height="0" type="audio/mpeg"></embed>';
 		document.getElementById("suono_img").src="sound_on.png";
 		sound=1;
 	}
@@ -259,7 +258,7 @@ function boom()
 	}
 }
 
-setInterval("crea_nabbo()", 200);  
+setInterval("crea_nabbo()", 200);
 </script>
 </head>
 <body OnKeyUp="if(event.keyCode==65){boom();}">
@@ -284,9 +283,9 @@ setInterval("crea_nabbo()", 200);
 <div id="corso5"></div>
 <div id="corso6"></div>
 </div>
-<p id="Score">Livello: 0 Score: 0</p>
+<p id="Score">Level: 0 Score: 0</p>
 <p><button OnClick="boom();"><img id="Boom" src="Boom_1.png"></img></button></p>
-<p>Tasto veloce A</p>
+<p>Shortcut A</p>
 </center>
 </body>
 </html>
