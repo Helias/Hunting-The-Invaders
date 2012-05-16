@@ -1,0 +1,292 @@
+<html>
+<head>
+<title>Hunting The Invaders</title>
+<style type="text/css">
+#terreno {
+	cursor:url("mirino.png"),default;
+	height:500px;
+	width:1000px;
+	background-image:url("Sfondo.png");
+	border-style:solid;
+	border-color:white;
+}
+
+img {
+	float:left;
+	margin 0 0;
+}
+
+div {
+	height:82px;
+	width:1000px;
+}
+
+body {
+	background-color:black;
+	color:white;
+}
+
+table {
+	height:59px;
+	width:50px;
+	background-image:url('Nabbo.gif');
+	float:left;
+	margin:0 0;
+	background-repeat:no-repeat;
+}
+
+.nabbo2 {
+	background-image:url('Nabbo2.gif');
+}
+
+button {
+	background-color:transparent;
+	border-color:transparent;
+}
+</style>
+<script type="text/javascript">
+var i=0;
+var t=100;
+var nabbi=0;
+var score=0;
+var livello=0;
+var z=new Array();
+var g=new Array();
+var p=new Array();
+var unlock=0;
+var pause=0;
+var bom=1;
+
+for(var f=0; f<6; f++)
+{
+	z[f]=1;
+	g[f]=1;
+	p[f]=0;
+}
+
+function crea_nabbo()
+{
+if(pause==0)
+{
+	if (z[1]!=0 || z[2]!=0 || z[3]!=0 || z[4]!=0 || z[5]!=0 || z[6]!=0)
+	{
+		unlock=0;
+		var r=parseInt((Math.random()*6)+1);
+		if(z[r]==0)
+		{r=((Math.random()*6)+1);}
+		else{z[r]=0;}
+		var nabbo=document.createElement("table");
+		nabbo.setAttribute('background', "Nabbo.gif");
+		nabbo.setAttribute('class', "snab");
+		nabbo.innerHTML='<tr><td OnMouseOver="inverti_nabbo('+i+');" ></td><td OnMouseOver="inverti_nabbo('+i+');"></td><td OnMouseOver="inverti_nabbo('+i+');"></td></tr>';
+		nabbo.setAttribute('id', i);
+		nabbo.setAttribute('OnMouseOver', "inverti_nabbo(this.id);");
+		a="corso"+r;
+		p[i]=a;
+		document.getElementById(a).appendChild(nabbo);
+		document.getElementById(i).style.marginLeft="0px";
+		document.getElementById(i).ondragstart = function(){ return false; };
+		setInterval("muovi_nabbo("+i+")", t);
+		muovi_nabbo(i);
+		i++;
+	}
+	else
+	{
+		if(livello==0)
+		{
+			if(unlock>=250)
+			{
+				unlock=0;
+				restart();
+			}
+			else { unlock++; }
+		}
+		else 
+		{
+			if(unlock>=30)
+			{
+				unlock=0;
+				restart();
+			}
+			else { unlock++; }
+		}
+
+	}
+}
+}
+
+function muovi_nabbo(nabbo)
+{
+if(pause==0)
+{
+	var margin=document.getElementById(nabbo).style.marginLeft;
+	margin=margin.replace("px", "");
+	margin=parseInt(margin);
+	if(margin==1000){conferma();}
+	if(margin<=-5)
+	{
+		nabbi++;
+		if(g[nabbo]==null){g[nabbo]=1;}
+		if(g[nabbo]==0){g[nabbo]=1;}
+		g[nabbo]=1;
+		z[nabbo]=1;
+		document.getElementById(nabbo).style.marginLeft="0px";
+		document.getElementById(p[nabbo]).removeChild(document.getElementById(nabbo));
+		score+=10;
+		nuovo_livello('level_up');
+		document.getElementById("Score").innerHTML="Livello: "+livello+" Score: "+score;
+		if(nabbi>=12)
+		{restart();}
+	}
+	else
+	{
+		if(g[nabbo]==null){g[nabbo]=1;}
+		if(g[nabbo]==1)
+		{
+			margin+=5;
+		}
+		if(g[nabbo]==0)
+		{
+			margin-=5;
+			document.getElementById(nabbo).className="nabbo2";		
+		}
+		document.getElementById(nabbo).style.marginLeft=margin;
+	}
+}
+}
+
+function conferma()
+{
+	alert('Hai perso!');
+	if(confirm("Hai fatto "+score+" punti! \n Vuoi riniziare?"))
+	{
+		location.href="";
+	}
+	else
+	{
+		alert("Allora visita il nostro sito!");
+		location.href="http://shinworld.altervista.org/";
+	}
+}
+
+function inverti_nabbo(nabbo)
+{
+	if(pause==0)
+	{
+		g[nabbo]=0;
+	}
+}
+
+function restart()
+{
+	i=0;
+	nabbi=0;
+	t=100;
+	z=new Array();
+	g=new Array();
+	p=new Array();
+
+	for(var f=0; f<6; f++)
+	{
+		z[f]=1;
+		g[f]=1;
+		p[f]=0;
+	}
+}
+
+function nuovo_livello(levelup) 
+{
+	if(score != 0)
+	{
+		if(score%120==0)
+		{
+			livello++;
+			if(livello%4==0) { bom++; document.getElementById("Boom").src="Boom_"+bom+".png"; }
+			document.getElementById("Level Up").src="Level UP.png";
+			document.getElementById("Level Up").style.display="block";
+			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
+		}
+	}
+}
+
+var sound=1;
+function suono() 
+{ 
+	if (sound==0) 
+	{
+		document.getElementById("suono").innerHTML ='<embed id="video" src="SkyVibe-HighFrequency.mp3" autostart="true" width="0" height="0" type="audio/mpeg"></embed>';
+		document.getElementById("suono_img").src="sound_on.png";
+		sound=1;
+	}
+	else 
+	{ 
+		document.getElementById("suono").innerHTML ="";
+		document.getElementById("suono_img").src="sound_off.png";
+		sound=0;
+	}
+}
+
+function pausa()
+{
+	if(pause==0)
+	{
+		document.getElementById("Pausa").src="Continua.png";
+		pause=1;
+	}
+	else
+	{
+		document.getElementById("Pausa").src="Pausa.png";
+		pause=0;
+	}
+}
+
+function boom()
+{
+	if(pause==0)
+	{
+		if(bom>0)
+		{
+			for(var i=0; i<g.length; i++)
+			{
+				g[i]=0;
+			}
+			bom--;
+			document.getElementById("Boom").src="Boom_"+bom+".png";
+			document.getElementById("Level Up").src="Boom!.png";
+			document.getElementById("Level Up").style.display="block";
+			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
+		}
+	}
+}
+
+setInterval("crea_nabbo()", 200);  
+</script>
+</head>
+<body OnKeyUp="if(event.keyCode==65){boom();}">
+<center>
+<div id="suono" style="width:0px; height:0px;"><embed id="video" src="SkyVibe-HighFrequency.mp3" autostart="true" width="0" height="0" type="audio/mpeg"></embed></div>
+<div style="height:100px;">
+<table style="background-image:url('');">
+<tr style="height:200px;">
+<td><p style="width:400px;"><img id="suono_img" src="sound_on.png" OnClick="suono();"></img></p></td>
+<td><p style="width:500px;"><button OnClick="pausa();"><img id="Pausa" src="Pausa.png"></img></button></p></td>
+<td><img id="Level Up" src="Level UP.png" style="display:none; float:right;"></img></td>
+</tr>
+</table>
+</div>
+<p style="height:55px;"></p>
+<div id="terreno">
+<div style="height:16px;"></div>
+<div id="corso1"></div>
+<div id="corso2"></div>
+<div id="corso3"></div>
+<div id="corso4"></div>
+<div id="corso5"></div>
+<div id="corso6"></div>
+</div>
+<p id="Score">Livello: 0 Score: 0</p>
+<p><button OnClick="boom();"><img id="Boom" src="Boom_1.png"></img></button></p>
+<p>Tasto veloce A</p>
+</center>
+</body>
+</html>
