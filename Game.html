@@ -170,25 +170,12 @@ if(pause==0)
 	}
 	else
 	{
-		if(livello==0 || livello==1)
+		if(unlock>=20)
 		{
-			if(unlock>=100)
-			{
-				unlock=0;
-				restart();
-			}
-			else { unlock++; }
+			unlock=0;
+			restart();
 		}
-		else 
-		{
-			if(unlock>=30)
-			{
-				unlock=0;
-				restart();
-			}
-			else { unlock++; }
-		}
-
+		else { unlock++; }
 	}
 }
 }
@@ -221,11 +208,13 @@ if(pause==0)
 		if(g[nabbo]==null){g[nabbo]=1;}
 		if(g[nabbo]==1)
 		{
+			unlock=0;
 			margin+=5;
 		}
 		if(g[nabbo]==0)
 		{
 			margin-=5;
+			unlock=0;
 			if(livello<=10)
 			{
 				document.getElementById(nabbo).src="./Livello/"+livello+"/Nabbo2.gif";
@@ -244,7 +233,7 @@ function conferma()
 {
 	if(confirm("                 Hai perso! \nHai fatto "+score+" punti! Vuoi registrarlo?"))
 	{
-		location.href="http://huntinginvaders.altervista.org/reg.php?record="+score;
+		location.href="http://huntinginvaders.altervista.org/regin.php?record="+score;
 	}
 	else
 	{
@@ -557,16 +546,16 @@ setInterval("crea_nabbo()", 200);
 <div id="suono" style="width:0px; height:0px;"><embed id="video" src="SkyVibe-HighFrequency.mp3" loop="true" autostart="true" width="0" height="0" type="audio/mpeg"></embed></div>
 <div id="menubar" style="height:100px; width:1000px;">
 <table style="background-image:url('');">
-<tr style="height:200px;">
-<td><div class="fb-like" style="height:30px; width:150px;" data-href="http://facebook.com/HuntingTheInvaders" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+<tr>
+<td><div class="fb-like" style="height:10px; width:150px;" data-href="http://facebook.com/HuntingTheInvaders" data-send="true" data-layout="button_count" data-width="250" data-show-faces="true"></div>
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone></g:plusone>
-<br/>
-<br/>
 <a name="fb_share" type="button_count" share_url="http://facebook.com/HuntingTheInvaders">Condividi</a>
 <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 </td>
+</tr>
+<tr>
 <td><p style="width:400px;"><button OnClick="if(pause==0){pausa();}opzioni();"><img src="./ITA/Opzioni.png"></img></button><img id="suono_img" src="sound_on.png" OnClick="suono();"></img></p></td>
-<td><p style="width:300px;"><button OnClick="pausa();" style="color:red;" id="paus"><img id="Pausa" src="./ITA/Inizia.png"></img></button></p></td>
+<td><p style="width:50px;"><button OnClick="pausa();" style="color:red;" id="paus"><img id="Pausa" src="./ITA/Inizia.png"></img></button></p></td>
 <td><img id="Level Up" src="Level UP.png" style="display:none; float:right;"></img></td>
 </tr>
 </table>
