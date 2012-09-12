@@ -116,6 +116,7 @@ button:hover {
 }
 </style>
 <script type="text/javascript">
+var memes=false;
 var i=0;
 var t=100;
 var nabbi=0;
@@ -149,13 +150,22 @@ if(pause==0)
 		{r=((Math.random()*6)+1);}
 		else{z[r]=0;}
 		var nabbo=document.createElement("img");
-		if(livello<=10)
+		if (memes==false)
 		{
-			nabbo.setAttribute('src', "./Livello/"+livello+"/Nabbo.gif");
+			if(livello<=10)
+			{
+				nabbo.setAttribute('src', "./Livello/"+livello+"/Nabbo.gif");
+			}
+			else
+			{
+				nabbo.setAttribute('src', "./Livello/10/Nabbo.gif");
+			}
 		}
 		else
 		{
-			nabbo.setAttribute('src', "./Livello/10/Nabbo.gif");
+			nabbo.setAttribute('src', "./Memes/"+Math.round(Math.random()*58)+".jpg");
+			nabbo.setAttribute('width', '50px');
+			nabbo.setAttribute('height', '59px');
 		}
 		nabbo.setAttribute('id', i);
 		nabbo.setAttribute('OnMouseOver', "inverti_nabbo(this.id);");
@@ -215,14 +225,10 @@ if(pause==0)
 		{
 			margin-=5;
 			unlock=0;
-			if(livello<=10)
-			{
-				document.getElementById(nabbo).src="./Livello/"+livello+"/Nabbo2.gif";
-			}
-			else
-			{
-				document.getElementById(nabbo).src="./Livello/10/Nabbo2.gif";
-			}
+			document.getElementById(nabbo).style.MozTransform='scaleX(-1)'; // Firefox
+			document.getElementById(nabbo).style['-webkit-transform']='scaleX(-1)'; // Safari & Chrome
+			document.getElementById(nabbo).style['-o-transform']='scaleX(-1)'; // Opera
+			document.getElementById(nabbo).style['-ms-transform']='scaleX(-1)'; // Internet Explorer 9			
 		}
 		document.getElementById(nabbo).style.marginLeft=margin;
 	}
@@ -275,7 +281,17 @@ function nuovo_livello(levelup)
 		{
 			livello++;
 			if(livello%4==0) { bom++; document.getElementById("Boom").src="Boom_"+bom+".png"; }
-			document.getElementById("Level Up").src="Level UP.png";
+			if(memes==false)
+			{
+				document.getElementById("Level Up").src="Level UP.png";
+			}
+			else
+			{
+				document.getElementById("Level Up").style.width="130";
+				document.getElementById("Level Up").style.height="105";
+				document.getElementById("Level Up").src="./Memes/level_up.jpg";
+			}
+
 			document.getElementById("Level Up").style.display="block";
 			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
 		}
@@ -301,6 +317,13 @@ function suono()
 
 function pausa()
 {
+	if(document.getElementById("Pausa").src.substr(-10,10).indexOf('Inizia.png') != -1)
+	{
+		if(confirm('Do you want to activate Memes mode?'))
+		{
+			memes_template();
+		}
+	}
 	if(pause==0)
 	{
 		fadeout('terreno');
@@ -329,7 +352,16 @@ function boom()
 				g[i]=0;
 			}
 			bom--;
-			document.getElementById("Level Up").src="Boom!.png";
+			if(memes==false)
+			{
+				document.getElementById("Level Up").src="Boom!.png";
+			}
+			else
+			{
+				document.getElementById("Level Up").src="./Memes/boom.jpg";
+				document.getElementById("Level Up").style.width="130";
+				document.getElementById("Level Up").style.height="105";
+			}
 			document.getElementById("Boom").src="Boom_"+bom+".png";
 			setTimeout('document.getElementById("Level Up").style.display="block";', 300);
 			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
@@ -369,11 +401,11 @@ function fadein(name, all)
 
 function opzioni()
 {
-	fadeout("paus", 0);
+	document.getElementById("paus").disabled="disabled";
+	document.getElementById("Score").style.color="black";
+	document.getElementById("shortcut").style.color="black";
 	fadeout("terreno", 0);
-	fadeout("Score", 0);
 	fadeout("Boom", 0);
-	fadeout("shortcut", 0);
 	fadeout('dado', 0);
 	fadeout('sfoglia', 0);
 	fadeout('ottagonale', 0);
@@ -384,11 +416,11 @@ function opzioni()
 
 function leftmenu()
 {
-	fadein("paus", 0);
+	document.getElementById("paus").disabled="";
+	document.getElementById("Score").style.color="yellow";
+	document.getElementById("shortcut").style.color="#00ff00";
 	fadein("terreno", 0);
-	fadein("Score", 0);
 	fadein("Boom", 0);
-	fadein("shortcut", 0);
 	fadeout("menu", 0);
 	fadein('menubar', 0);
 	fadeout('dado', 0);
@@ -530,6 +562,20 @@ function browser(display)
 	}
 }
 
+function memes_template()
+{
+	if (memes==false)
+	{
+		memes=true;
+		document.getElementById("memes").src='./Memes/54.jpg';
+	}
+	else
+	{
+		memes=false;
+		document.getElementById("memes").src='./Memes/55.jpg';
+	}
+}
+
 setInterval("crea_nabbo()", 200);
 </script>
 </head>
@@ -545,18 +591,18 @@ setInterval("crea_nabbo()", 200);
 <center>
 <div id="suono" style="width:0px; height:0px;"><embed id="video" src="SkyVibe-HighFrequency.mp3" loop="true" autostart="true" width="0" height="0" type="audio/mpeg"></embed></div>
 <div id="menubar" style="height:100px; width:1000px;">
-<table style="background-image:url('');">
+<table style="">
 <tr>
-<td><div class="fb-like" style="height:10px; width:150px;" data-href="http://facebook.com/HuntingTheInvaders" data-send="true" data-layout="button_count" data-width="250" data-show-faces="true"></div>
+<td><div class="fb-like" style="height:0px; width:150px;" data-href="http://facebook.com/HuntingTheInvaders" data-send="true" data-layout="button_count" data-width="250" data-show-faces="true"></div>
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone></g:plusone>
 <a name="fb_share" type="button_count" share_url="http://facebook.com/HuntingTheInvaders">Share</a>
 <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 </td>
 </tr>
 <tr>
-<td><p style="width:400px;"><button OnClick="if(pause==0){pausa();}opzioni();"><img src="./ENG/Opzioni.png"></img></button><img id="suono_img" src="sound_on.png" OnClick="suono();"></img></p></td>
-<td><p style="width:300px;"><button OnClick="pausa();" style="color:red;" id="paus"><img id="Pausa" src="./ENG/Inizia.png"></img></button></p></td>
-<td><img id="Level Up" src="Level UP.png" style="display:none; float:right;"></img></td>
+<td><p style="width:600px;"><button OnClick="if(pause==0){pausa();}opzioni();"><img src="./ENG/Opzioni.png"></img></button><img id="suono_img" src="sound_on.png" OnClick="suono();"></img><button OnClick="pausa();" style="color:red;" id="paus"><img id="Pausa" src="./ENG/Inizia.png"></img></button><button style="-webkit-transform:rotate(-5deg); -moz-transform:rotate(-5deg); -o-transform:rotate(-5deg); -ms-transform:rotate(-5deg);" OnClick="memes_template();"><img id="memes" style="height:50px; width:59px;" src="./Memes/55.jpg"></button><img id="Level Up" src="Level UP.png" style="display:none; float:right;"></img></p></td>
+<td></td>
+<td></td>
 </tr>
 </table>
 </div>
@@ -564,7 +610,7 @@ setInterval("crea_nabbo()", 200);
 
 <div id="dado" class="position">
 <div class="cubespinner">
-<div class="face1"><button class="button" OnClick="leftmenu('dado');"><img src="./ENG/Tornaalgioco.png"></img></button></div>
+<div class="face1"><button class="button" OnClick="leftmenu();"><img src="./ENG/Tornaalgioco.png"></img></button></div>
 <div class="face2"><button class="button" OnClick="tasto_rapido('dado');"><img src="./ENG/Tastorapido.png"></img></button></div>
 <div class="face3"><button class="button" OnClick="help('dado');"><img src="./ENG/Comesigioca.png"></img></button></div>
 <div class="face4"><button class="button" OnClick="choose_sound('dado');"><img src="./ENG/Sceglimusica.png"></img></button></div>
@@ -574,7 +620,7 @@ setInterval("crea_nabbo()", 200);
 </div>
 
 <div id="sfoglia" class="spinner" style="width:150px; height:250px; display:none;">
-<img OnClick="leftmenu('sfoglia');" style="-webkit-transform:rotateY(0deg) translateZ(165px); -moz-transform: rotateY(0deg) translateX(180px); padding: 0px 0px 0px 160px; background-color:orange;" src="./ENG/Tornaalgioco.png"></img>
+<img OnClick="leftmenu();" style="-webkit-transform:rotateY(0deg) translateZ(165px); -moz-transform: rotateY(0deg) translateX(180px); padding: 0px 0px 0px 160px; background-color:orange;" src="./ENG/Tornaalgioco.png"></img>
 <img OnClick="tasto_rapido('sfoglia');" style="-webkit-transform:rotateY(72deg) translateZ(165px); -moz-transform: rotateY(-72deg) translateX(180px); padding: 0px 0px 0px 147px; background-color:orange;" src="./ENG/Tastorapido.png"></img>
 <img OnClick="help('sfoglia');" style="-webkit-transform:rotateY(144deg) translateZ(165px);-moz-transform: rotateY(-144deg) translateX(180px); padding: 0px 0px 0px 120px; background-color:orange;" src="./ENG/Comesigioca.png"></img>
 <img OnClick="choose_sound('sfoglia');" style="-webkit-transform:rotateY(144deg) translateZ(165px); -moz-transform: rotateY(-216deg) translateX(180px); padding: 0px 0px 0px 147px; background-color:orange;" src="./ENG/Sceglimusica.png"></img>
@@ -584,7 +630,7 @@ setInterval("crea_nabbo()", 200);
 
 <div id="ottagonale" class="center" style="width:240px;height:160px; display:none;">
 <div style="width:1px; height:1px;" class="spinner">
-<img OnClick="leftmenu('ottagonale');" style="-webkit-transform:rotateY(0deg) translateZ(165px); -moz-transform: rotateY(0deg) translateZ(165px); padding: 0px 20px; background-color:transparent; border-color:transparent;" src="./ENG/Tornaalgioco.png"></img>
+<img OnClick="leftmenu();" style="-webkit-transform:rotateY(0deg) translateZ(165px); -moz-transform: rotateY(0deg) translateZ(165px); padding: 0px 20px; background-color:transparent; border-color:transparent;" src="./ENG/Tornaalgioco.png"></img>
 <img OnClick="tasto_rapido('ottagonale');" style="-webkit-transform:rotateY(72deg) translateZ(165px); -moz-transform: rotateY(72deg) translateZ(165px); padding: 0px 13.5px; background-color:transparent; border-color:transparent;" src="./ENG/Tastorapido.png"></img>
 <img OnClick="help('ottagonale');" style="-webkit-transform:rotateY(144deg) translateZ(165px); -moz-transform: rotateY(144deg) translateZ(165px); padding: 0px; background-color:transparent; border-color:transparent;" src="./ENG/Comesigioca.png"></img>
 <img OnClick="choose_sound('ottagonale');" style="-webkit-transform:rotateY(216deg) translateZ(165px); -moz-transform: rotateY(216deg) translateZ(165px); padding: 0px 13.5px; background-color:transparent; border-color:transparent;" src="./ENG/Sceglimusica.png"></img>
@@ -629,9 +675,7 @@ Octagonal<input type="radio" name="radio1" OnChange="clearmenu('ottagonale');fad
 <div id="corso5"></div>
 <div id="corso6"></div>
 </div>
-<p id="Score">Level: 0 Score: 0</p>
-<p><button OnClick="boom();"><img id="Boom" src="Boom_1.png"></img></button></p>
-<p id="shortcut">Shortcut A</p>
+<p><center><b id="Score" style="margin-left:0px; color:yellow;">Level: 0 Score: 0</b>  <b id="shortcut" style="margin-left:0px; color:#00ff00;">Shortcut A</b></center></p><p><button OnClick="boom();"><img id="Boom" src="Boom_1.png"></img></button></p>
 <script type="text/javascript">
 document.getElementsByName("tastorapido")[0].value=String.fromCharCode(shortcut);
 document.getElementById("guida").innerHTML=String.fromCharCode(shortcut);
