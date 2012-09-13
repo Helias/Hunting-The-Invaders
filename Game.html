@@ -32,9 +32,6 @@ body {
 	color:white;
 }
 
-.nabbo2 {
-	background-image:url('./Livello/0/Nabbo2.gif');
-}
 
 button {
 	background-color:transparent;
@@ -163,7 +160,7 @@ if(pause==0)
 		}
 		else
 		{
-			nabbo.setAttribute('src', "./Memes/"+Math.round(Math.random()*58)+".jpg");
+			nabbo.setAttribute('src', "./Memes/"+Math.round(Math.random()*57)+".jpg");
 			nabbo.setAttribute('width', '50px');
 			nabbo.setAttribute('height', '59px');
 		}
@@ -350,10 +347,6 @@ function boom()
 	{
 		if(bom>0)
 		{
-			for(var i=0; i<g.length; i++)
-			{
-				g[i]=0;
-			}
 			bom--;
 			if(memes==false)
 			{
@@ -368,6 +361,11 @@ function boom()
 			document.getElementById("Boom").src="Boom_"+bom+".png";
 			setTimeout('document.getElementById("Level Up").style.display="block";', 300);
 			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
+			for(var i=0; i<g.length; i++)
+			{
+				g[i]=0;
+				if (memes==true) { document.getElementById(i).src='./Memes/boom.jpg'; }
+			}
 		}
 	}
 }
@@ -653,7 +651,7 @@ setInterval("crea_nabbo()", 200);
 <li id="menu6" class="menu6"><button OnClick="awards();"><img src="./ITA/Riconoscimenti.png"></img></button></li>
 </ul>
 <p id="tastorapido" style="display:none; margin-top:100px;">Tasto Rapido: <input type="text" value="" OnKeyUp="if (document.getElementsByName('tastorapido')[0].value.length>1) {document.getElementsByName('tastorapido')[0].value=String.fromCharCode(event.keyCode); }shortcut=event.keyCode;change();" name="tastorapido" style="width:25px; color:red; background-color:#00ff00; border-color:red;"/><br/><br/><br/><br/><br/><button OnClick="ripristina('tastorapido');"><img src="./ITA/Ripristina.png"></img></button><br/><br/></p>
-<p id="aiuto" style="display:none;">Come si gioca ad Hunting The Invaders?<br/><br/><br/><img src="./Livello/0/Nabbo.gif"></img>Lo scopo del gioco di Hunting The Invaders è quello di fermare gli invasori passando sopra di essi il cursore del mouse<img src="./Livello/0/Nabbo2.gif" style="float:right;"></img><br/><br/>oppure utilizzando il pulsante "Boom" premendo il tasto <b id="guida">A</b>.<br/> N.B.: Il pulsante boom lo puoi usare inizialmente una volta sola, solo dopo che hai superato quattro livelli si ricaricherà.<img src="Boom_1.png"></img></p>
+<p id="aiuto" style="display:none;">Come si gioca ad Hunting The Invaders?<br/><br/><br/><img src="./Livello/0/Nabbo.gif"></img>Lo scopo del gioco di Hunting The Invaders è quello di fermare gli invasori passando sopra di essi il cursore del mouse<img src="./Livello/0/Nabbo.gif" style='float:right; -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); filter: FlipH; -ms-filter: "FlipH";'></img><br/><br/>oppure utilizzando il pulsante "Boom" premendo il tasto <b id="guida">A</b>.<br/> N.B.: Il pulsante boom lo puoi usare inizialmente una volta sola, solo dopo che hai superato quattro livelli si ricaricherà.<img src="Boom_1.png"></img></p>
 <p id="sceglisuono" style="display:none;"><br/>Scegli un file audio come musica di sottofondo<br/><br/>
 <br/><input type="radio" id="default" name="radios" value="SkyVibe-HighFrequency.mp3" OnClick="path=this.value; sound=0; suono();">Default
 <br/><input type="radio" name="radios" value="Crazy-Frog.mp3" OnClick="path=this.value; sound=0; suono();">Crazy Frog
