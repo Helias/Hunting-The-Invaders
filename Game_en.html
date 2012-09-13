@@ -319,9 +319,12 @@ function pausa()
 {
 	if(document.getElementById("Pausa").src.substr(-10,10).indexOf('Inizia.png') != -1)
 	{
-		if(confirm('Do you want to activate Memes mode?'))
+		if(memes==false)
 		{
-			memes_template();
+			if(confirm('Do you want to activate Memes mode?'))
+			{
+				memes_template();
+			}
 		}
 	}
 	if(pause==0)

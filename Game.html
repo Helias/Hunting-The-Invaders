@@ -316,11 +316,15 @@ function suono()
 
 function pausa()
 {
+
 	if(document.getElementById("Pausa").src.substr(-10,10).indexOf('Inizia.png') != -1)
 	{
-		if(confirm('Vuoi attivare la modalità Memes?'))
+		if(memes==false)
 		{
-			memes_template();
+			if(confirm('Vuoi attivare la modalità Memes?'))
+			{
+				memes_template();
+			}
 		}
 	}
 	if(pause==0)
