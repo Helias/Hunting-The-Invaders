@@ -347,6 +347,11 @@ function boom()
 	{
 		if(bom>0)
 		{
+			for(var i=0; i<g.length; i++)
+			{
+				g[i]=0;
+//				if (memes==true) { document.getElementById(i).src='./Memes/boom.jpg'; }
+			}
 			bom--;
 			if(memes==false)
 			{
@@ -361,11 +366,6 @@ function boom()
 			document.getElementById("Boom").src="Boom_"+bom+".png";
 			setTimeout('document.getElementById("Level Up").style.display="block";', 300);
 			setTimeout('document.getElementById("Level Up").style.display="none";', 3000);
-			for(var i=0; i<g.length; i++)
-			{
-				g[i]=0;
-				if (memes==true) { document.getElementById(i).src='./Memes/boom.jpg'; }
-			}
 		}
 	}
 }
