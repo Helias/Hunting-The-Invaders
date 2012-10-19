@@ -127,6 +127,7 @@ var pause=1;
 var bom=1;
 var shortcut=65;
 var path='SkyVibe-HighFrequency.mp3';
+var sign=0;
 
 for(var f=0; f<6; f++)
 {
@@ -234,13 +235,17 @@ if(pause==0)
 
 function conferma()
 {
-	if(confirm("                 Hai perso! \nHai fatto "+score+" punti! Vuoi registrarlo?"))
+	if(sign==0)
 	{
-		location.href="http://huntinginvaders.altervista.org/regin.php?record="+score;
-	}
-	else
-	{
-		location.href="";
+		sign=1;
+		if(confirm("                 Hai perso! \nHai fatto "+score+" punti! Vuoi registrarlo?"))
+		{
+			location.href="http://huntinginvaders.altervista.org/regin.php?record="+score;
+		}
+		else
+		{
+			location.href="";
+		}
 	}
 }
 
@@ -350,7 +355,6 @@ function boom()
 			for(var i=0; i<g.length; i++)
 			{
 				g[i]=0;
-//				if (memes==true) { document.getElementById(i).src='./Memes/boom.jpg'; }
 			}
 			bom--;
 			if(memes==false)
